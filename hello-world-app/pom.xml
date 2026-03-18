@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example</groupId>
+        <artifactId>jee-ear-war-maven-properties</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>hello-world-app</artifactId>
+    <packaging>ear</packaging>
+
+    <name>Hello World JEE - EAR</name>
+
+    <dependencies>
+        <!-- WAR module to be bundled into the EAR -->
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>hello-world-impl</artifactId>
+            <type>war</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>hello-world</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <version>7</version>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <modules>
+                        <webModule>
+                            <groupId>com.example</groupId>
+                            <artifactId>hello-world-impl</artifactId>
+                            <bundleFileName>hello-world-impl.war</bundleFileName>
+                            <contextRoot>/hello-world</contextRoot>
+                            <unpack>true</unpack>
+                        </webModule>
+                    </modules>
+                </configuration>
+            </plugin>
+
+            <!-- Deploy to a running WildFly / JBoss EAP instance -->
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <configuration>
+                    <hostname>localhost</hostname>
+                    <port>9990</port>
+                    <filename>${project.build.finalName}.ear</filename>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
