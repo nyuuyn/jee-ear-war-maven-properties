@@ -127,13 +127,23 @@ WildFly accepts `hello-world-impl.war` as both a packed `.war` file and an unpac
 
 ---
 
+## Architecture Documentation
+
+A full [arc42](https://arc42.org) architecture documentation is available at:
+
+📄 [`docs/arc42/arc42-documentation.md`](docs/arc42/arc42-documentation.md)
+
+It covers system scope and context, building block view, runtime and deployment views, architecture decisions (ADRs), quality requirements, and a glossary.
+
+---
+
 ## Prerequisites
 
 | Tool | Version |
 |------|---------|
-| Java | 8+ |
+| Java | 17+ |
 | Maven | 3.6+ |
-| WildFly / JBoss EAP | 10+ (tested with WildFly 26+) |
+| WildFly / JBoss EAP | WildFly 27+ or JBoss EAP 8+ (Jakarta EE 10) |
 | IntelliJ IDEA | Any recent version (optional) |
 
 ---
