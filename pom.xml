@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <name>Hello World JEE - Parent</name>
-    <description>Multi-module Maven project: WAR + EAR for JBoss EAP 7 / WildFly</description>
+    <description>Multi-module Maven project: WAR + EAR for WildFly 27+ / JBoss EAP 8 (Jakarta EE 10)</description>
 
     <modules>
         <module>hello-world-impl</module>
@@ -21,14 +21,13 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
 
         <!-- Application properties -->
         <security.domain>mySecurityDomain</security.domain>
 
         <!-- Dependency versions -->
-        <version.jboss.javaee7>1.1.1.Final</version.jboss.javaee7>
+        <version.jakarta.ee>10.0.0</version.jakarta.ee>
 
         <!-- Plugin versions -->
         <version.maven.compiler.plugin>3.11.0</version.maven.compiler.plugin>
@@ -39,13 +38,12 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Java EE 7 BOM (provided by JBoss EAP 7 / WildFly) -->
+            <!-- Jakarta EE 10 all-in-one API (provided by WildFly 27+ / JBoss EAP 8) -->
             <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-7.0</artifactId>
-                <version>${version.jboss.javaee7}</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>jakarta.platform</groupId>
+                <artifactId>jakarta.jakartaee-api</artifactId>
+                <version>${version.jakarta.ee}</version>
+                <scope>provided</scope>
             </dependency>
 
             <!-- Internal modules -->
@@ -66,8 +64,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${version.maven.compiler.plugin}</version>
                     <configuration>
-                        <source>${maven.compiler.source}</source>
-                        <target>${maven.compiler.target}</target>
+                        <release>${maven.compiler.release}</release>
                     </configuration>
                 </plugin>
 

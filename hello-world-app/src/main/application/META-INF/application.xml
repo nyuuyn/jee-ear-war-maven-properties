@@ -1,9 +1,9 @@
  file<?xml version="1.0" encoding="UTF-8"?>
-<application xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+<application xmlns="https://jakarta.ee/xml/ns/jakartaee"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-                 http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd"
-             version="7">
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                 https://jakarta.ee/xml/ns/jakartaee/application_10.xsd"
+             version="10">
 
     <display-name>Hello World EAR</display-name>
 

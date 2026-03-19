@@ -4,7 +4,7 @@
 
 **Version:** 1.0.0-SNAPSHOT
 **Date:** 2026-03-19
-**Status:** Active
+**Status:** Active — migrated to Jakarta EE 10 / Java 17
 
 ---
 
@@ -70,10 +70,10 @@ The `jboss-web.xml` deployment descriptor inside `WEB-INF/` must contain the res
 
 | Constraint          | Background / Motivation                                                      |
 |---------------------|------------------------------------------------------------------------------|
-| Java 8              | Baseline JVM version; JEE 7 APIs require at least Java 7                    |
-| JEE 7              | Target API set; provided by WildFly/JBoss EAP 7.x application server        |
+| Java 17             | Baseline JVM version; required by Jakarta EE 10                             |
+| Jakarta EE 10       | Target API set; provided by WildFly 27+ / JBoss EAP 8                      |
 | Maven 3.6+          | Required by the plugin versions used (maven-war-plugin 3.3.2, maven-ear-plugin 3.3.0) |
-| WildFly / JBoss EAP | Runtime target; JBoss-specific `jboss-web.xml` is only understood by these servers |
+| WildFly 27+ / JBoss EAP 8 | Runtime target; JBoss-specific `jboss-web.xml` is only understood by these servers |
 | EAR packaging       | Required by the deployment scenario; WAR must be bundled inside an EAR      |
 
 ### 2.2 Organizational Constraints
@@ -385,15 +385,17 @@ Maven profiles can also be used for systematic environment management:
 mvn clean package -Pprod
 ```
 
-### 8.3 JEE 7 API Usage
+### 8.3 Jakarta EE 10 API Usage
 
-All JEE APIs are declared with `provided` scope — the application server supplies them at runtime:
+All Jakarta EE APIs are declared with `provided` scope — the application server supplies them at runtime:
 
-| API       | Spec Artifact                           | Usage in project           |
-|-----------|-----------------------------------------|----------------------------|
-| Servlet   | `jboss-servlet-api_3.1_spec`            | `HelloServlet` base class  |
-| CDI       | `cdi-api`                               | Available, not yet used    |
-| JAX-RS    | `jboss-jaxrs-api_2.0_spec`              | Available, not yet used    |
+| API       | Spec Artifact                                  | Usage in project           |
+|-----------|------------------------------------------------|----------------------------|
+| Servlet   | `jakarta.platform:jakarta.jakartaee-api`       | `HelloServlet` base class  |
+| CDI       | `jakarta.platform:jakarta.jakartaee-api`       | Available, not yet used    |
+| JAX-RS    | `jakarta.platform:jakarta.jakartaee-api`       | Available, not yet used    |
+
+All three APIs are covered by the single `jakarta.platform:jakarta.jakartaee-api:10.0.0` dependency with `provided` scope.
 
 ---
 
@@ -490,13 +492,13 @@ Quality
 |-----|-----------------------------------------------------------|-------------|--------|----------------------------------------------------|
 | R1  | Security domain name hardcoded in POM default             | Low         | Medium | Use Maven profiles or CI variable injection        |
 | R2  | WildFly plugin version incompatibility with newer servers | Medium      | Low    | Pin or regularly update `wildfly-maven-plugin` version |
-| R3  | Java 8 EOL; newer JEE specs require Java 11+              | Low         | High   | Upgrade to Jakarta EE and Java 11+ when needed     |
+| ~~R3~~  | ~~Java 8 EOL; newer JEE specs require Java 11+~~      | ~~Low~~     | ~~High~~ | **Resolved** — migrated to Jakarta EE 10 and Java 17 (2026-03-19) |
 
 ### 11.2 Technical Debt
 
 | ID  | Item                                            | Impact | Effort to Resolve                              |
 |-----|-------------------------------------------------|--------|------------------------------------------------|
-| TD1 | Java 8 / JEE 7 — both past end-of-life         | Medium | Migrate to Jakarta EE 10 + Java 17+            |
+| ~~TD1~~ | ~~Java 8 / JEE 7 — both past end-of-life~~ | ~~Medium~~ | **Resolved** — migrated to Jakarta EE 10 + Java 17 (2026-03-19) |
 | TD2 | No Maven profiles for environment separation   | Low    | Add `dev`, `test`, `prod` profiles in parent POM |
 | TD3 | No unit or integration tests                   | Low    | Add servlet tests with Arquillian or similar   |
 | TD4 | CDI and JAX-RS dependencies declared but unused | Low    | Remove or implement features that use them     |
@@ -514,9 +516,9 @@ Quality
 | **jboss-web.xml**  | JBoss/WildFly-specific deployment descriptor for configuring security domain, context root, etc. |
 | **security-domain**| JBoss/WildFly concept for a named security policy configuration used for authentication       |
 | **Exploded deployment** | Deployment of an artifact as an unpacked directory structure rather than a compressed archive |
-| **JEE / Jakarta EE** | Java Enterprise Edition — the platform specification for enterprise Java applications        |
-| **WildFly**        | Open-source Java application server by Red Hat, previously known as JBoss AS                  |
-| **JBoss EAP**      | JBoss Enterprise Application Platform — Red Hat's supported version of WildFly               |
+| **Jakarta EE**     | Successor to Java EE — the platform specification for enterprise Java applications, governed by the Eclipse Foundation. Version 10 requires Java 17+ and uses the `jakarta.*` package namespace. |
+| **WildFly**        | Open-source Java application server by Red Hat, previously known as JBoss AS. WildFly 27+ supports Jakarta EE 10. |
+| **JBoss EAP**      | JBoss Enterprise Application Platform — Red Hat's supported version of WildFly. EAP 8 supports Jakarta EE 10. |
 | **Context Root**   | The URL path prefix at which a web application is accessible on the server                    |
 | **bundleFileName** | EAR plugin configuration for the name of the WAR module inside the EAR archive               |
 | **provided scope** | Maven dependency scope for libraries supplied by the runtime environment (application server) |

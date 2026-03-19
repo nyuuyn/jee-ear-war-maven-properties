@@ -17,25 +17,10 @@
     <name>Hello World JEE - WAR</name>
 
     <dependencies>
-        <!-- Servlet API — provided by JBoss EAP / WildFly -->
+        <!-- Jakarta EE 10 APIs — provided by WildFly 27+ / JBoss EAP 8 -->
         <dependency>
-            <groupId>org.jboss.spec.javax.servlet</groupId>
-            <artifactId>jboss-servlet-api_3.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- CDI API — provided by JBoss EAP / WildFly -->
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- JAX-RS API — provided by JBoss EAP / WildFly -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.ws.rs</groupId>
-            <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
-            <scope>provided</scope>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
         </dependency>
     </dependencies>
 
