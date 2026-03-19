@@ -1,5 +1,7 @@
 # jee-ear-war-maven-properties
 
+[![Build and Test](https://github.com/nyuuyn/jee-ear-war-maven-properties/actions/workflows/build.yml/badge.svg)](https://github.com/nyuuyn/jee-ear-war-maven-properties/actions/workflows/build.yml)
+
 A minimal working example of **Maven property filtering inside `jboss-web.xml`** for a JEE application packaged as an EAR containing a WAR, with full support for **IntelliJ IDEA exploded deployment** to WildFly / JBoss EAP.
 
 ---

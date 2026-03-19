@@ -123,6 +123,7 @@ The `jboss-web.xml` deployment descriptor inside `WEB-INF/` must contain the res
 
 | Neighbour             | Description                                                              |
 |-----------------------|--------------------------------------------------------------------------|
+| GitHub Actions        | Runs `mvn clean verify` on every push and pull request to `master`       |
 | Maven / CI Pipeline   | Executes the build; provides property values via `-D` flags or profiles  |
 | WildFly / JBoss EAP   | Hosts the deployed EAR; reads and enforces `jboss-web.xml` security domain |
 | HTTP Client           | Accesses the deployed servlet at `http://<host>:8080/hello-world/hello`  |
@@ -329,7 +330,20 @@ mvn wildfly:deploy
 mvn wildfly:undeploy
 ```
 
-### 7.3 IntelliJ IDEA Exploded Deployment
+### 7.3 CI Pipeline (GitHub Actions)
+
+The project uses GitHub Actions for continuous integration. The workflow is defined in `.github/workflows/build.yml`.
+
+**Triggers:** push and pull requests to `master`
+
+**Steps:**
+1. Check out source
+2. Set up Java 17 (Temurin) with Maven dependency cache
+3. Run `mvn clean verify` — compiles, runs unit tests, and packages the EAR
+
+The workflow ensures every change is built and tested automatically before merging.
+
+### 7.4 IntelliJ IDEA Exploded Deployment
 
 For development, the project supports IntelliJ's exploded EAR deployment:
 
