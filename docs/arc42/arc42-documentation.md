@@ -500,7 +500,7 @@ Quality
 |-----|-------------------------------------------------|--------|------------------------------------------------|
 | ~~TD1~~ | ~~Java 8 / JEE 7 — both past end-of-life~~ | ~~Medium~~ | **Resolved** — migrated to Jakarta EE 10 + Java 17 (2026-03-19) |
 | TD2 | No Maven profiles for environment separation   | Low    | Add `dev`, `test`, `prod` profiles in parent POM |
-| TD3 | No unit or integration tests                   | Low    | Add servlet tests with Arquillian or similar   |
+| ~~TD3~~ | ~~No unit or integration tests~~           | ~~Low~~ | **Resolved** — added JUnit 5 + Mockito unit tests for `HelloServlet` (2026-03-19) |
 | TD4 | CDI and JAX-RS dependencies declared but unused | Low    | Remove or implement features that use them     |
 
 ---
